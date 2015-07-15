@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>AADE7BFD-3E1D-4EFB-AA3C-C27006BA5D58</string>
+	<key>IDESourceControlProjectName</key>
+	<string>IFootPathApp</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>55D17B206912F3B9D1FAD4FE880CA60C7D94E818</key>
+		<string>https://github.com/ChaykovskyArtem/IFootPathApp.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>IFootPathApp.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>55D17B206912F3B9D1FAD4FE880CA60C7D94E818</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ChaykovskyArtem/IFootPathApp.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>55D17B206912F3B9D1FAD4FE880CA60C7D94E818</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>55D17B206912F3B9D1FAD4FE880CA60C7D94E818</string>
+			<key>IDESourceControlWCCName</key>
+			<string>IFootPathApp</string>
+		</dict>
+	</array>
+</dict>
+</plist>
