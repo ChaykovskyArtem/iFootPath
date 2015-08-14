@@ -7,10 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <SDWebImageManager.h>
 
-@interface ACWalk : NSObject
+@interface ACWalk : NSObject  <NSCoding>
 
 - (ACWalk*) initWithResponse:(id) response;
+
+
+- (void) getImageFromServerWithUrl:(NSString*) url completionBlock: (void(^)(UIImage* image, NSError* error)) block;
 
 
 @property (strong, nonatomic) NSString* walkCountry;

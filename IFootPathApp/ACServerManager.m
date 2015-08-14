@@ -8,17 +8,19 @@
 
 #import "ACServerManager.h"
 #import "ACWalk.h"
-#import "WalksEntity.h"
-#import <AFNetworking.h>
+#import "ACDataManager.h"
 
 @interface ACServerManager()
 
-@property (strong, nonatomic) AFHTTPRequestOperationManager* requestOperationManager;
 
+@property (strong, nonatomic) NSMutableArray* walksArray;
 
 @end
 
 @implementation ACServerManager
+
+
+
 
 + (ACServerManager*) sharedManager {
     
@@ -30,44 +32,41 @@
     return manager;
 }
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        
-        self.requestOperationManager = [[AFHTTPRequestOperationManager alloc] init];
-        
-        NSMutableSet *contentTypes = [[NSMutableSet alloc] initWithSet:self.requestOperationManager.responseSerializer.acceptableContentTypes];
-        [contentTypes addObject:@"text/html"];
-        self.requestOperationManager.responseSerializer.acceptableContentTypes = contentTypes;
-    }
-    return self;
-}
 
-- (void) getDataFromServerOnURL:(NSString*) url {
+-(void) getDataFromServer { 
+
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    NSURL *url = [NSURL URLWithString:@"http://www.ifootpath.com/API/get_walks.php"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0];
     
-    [self.requestOperationManager
-     POST:url
-     parameters:nil
-     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-         
-         [[ACCoreDataManager sharedManager] deleteAllObjects];
-         NSArray *responseArray = [responseObject objectForKey:@"walks"];
-         
-         for (NSDictionary* dict in responseArray) {
-
-             ACWalk* walk = [[ACWalk alloc] initWithResponse:dict];
-                 [[ACCoreDataManager sharedManager] addToCoreData:walk];
-         }
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         NSLog(@"Error: %@", error);
-     }
-         
-     ];
+    [request setHTTPMethod:@"POST"];
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        if (![[NSThread currentThread] isMainThread]) {
+            NSLog(@"Not main thread");
+        }
+        
+        NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        
+        NSArray *responseArray = [jsonArray valueForKey:@"walks"];
+        
+        [[ACDataManager sharedManager] deleteAllWalksFromPlist];
+    
+        for (NSDictionary* dict in responseArray) {
+            ACWalk* walk = [[ACWalk alloc] initWithResponse:dict];
+            [[ACDataManager sharedManager]saveToPlist:walk];
 }
-
-
-
+        [[ACDataManager sharedManager] loadFromPlist];
+        
+        
+    }];
+    
+    [postDataTask resume];
+    
+}
 
 @end

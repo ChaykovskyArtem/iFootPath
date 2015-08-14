@@ -10,6 +10,8 @@
 	<string>IFootPathApp</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>0DE369E785299726A29C49E9ED2A4A7FED5AD9EF</key>
+		<string>https://github.com/ChaykovskyArtem/iFootPath.git</string>
 		<key>55D17B206912F3B9D1FAD4FE880CA60C7D94E818</key>
 		<string>https://github.com/ChaykovskyArtem/IFootPathApp.git</string>
 	</dict>
@@ -17,15 +19,17 @@
 	<string>IFootPathApp.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>55D17B206912F3B9D1FAD4FE880CA60C7D94E818</key>
+		<key>0DE369E785299726A29C49E9ED2A4A7FED5AD9EF</key>
 		<string>..</string>
+		<key>55D17B206912F3B9D1FAD4FE880CA60C7D94E818</key>
+		<string>../../IFootPathApp</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/ChaykovskyArtem/IFootPathApp.git</string>
+	<string>https://github.com/ChaykovskyArtem/iFootPath.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>55D17B206912F3B9D1FAD4FE880CA60C7D94E818</string>
+	<string>0DE369E785299726A29C49E9ED2A4A7FED5AD9EF</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>55D17B206912F3B9D1FAD4FE880CA60C7D94E818</string>
 			<key>IDESourceControlWCCName</key>
 			<string>IFootPathApp</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0DE369E785299726A29C49E9ED2A4A7FED5AD9EF</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iFootPathGit</string>
 		</dict>
 	</array>
 </dict>

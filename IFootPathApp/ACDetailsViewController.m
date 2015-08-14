@@ -8,15 +8,14 @@
 
 #import "ACDetailsViewController.h"
 #import "ACWalkDetailsCell.h"
-#import "UIImageView+AFNetworking.h"
 #import "ACCoreDataManager.h"
 #import "ACDescriptionCell.h"
 #import "ACMainViewContoller.h"
 #import "ACDetailsEditCell.h"
 #import "ACFullScreenImageController.h"
 #import <CoreData/CoreData.h>
-#import "AFNetworking.h"
-#import "UIKit+AFNetworking.h"
+#import "ACWalksPreviewCell.h"
+#import "ACDataManager.h"
 
 @interface ACDetailsViewController ()
 
@@ -33,7 +32,7 @@ static NSString* walkPhotoUrl = @"http://www.ifootpath.com/upload/";
     
     UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
                                                                           target:self
-                                                                          action:@selector(deleteObjectFromCoreData)];
+                                                                          action:@selector(deleteObjectFromPlist)];
     [self.navigationItem setRightBarButtonItem:item animated:NO];
     
     self.navigationItem.title = self.walkEntity.walkTitle;
@@ -63,16 +62,29 @@ static NSString* walkPhotoUrl = @"http://www.ifootpath.com/upload/";
     }
         if (indexPath.row == 0) {
 
-        NSURL* url = [NSURL URLWithString:self.walkEntity.walkPhoto];
-        [cell.walkPhoto setImageWithURL:url];
+                       
+    [self.walkEntity getImageFromServerWithUrl:self.walkEntity.walkPhoto completionBlock:^(UIImage *image, NSError *error) {
+        
+    [cell.walkPhoto setImage:image];
+                if (!image) {
+                    NSLog(@"%@", error.description);
+                }
+            }];
             
-        return cell;
+            return cell;
 }
         if (indexPath.row == 2) {
-    
-                NSURL* url = [NSURL URLWithString:self.walkEntity.walkIllustration];
-                [cell.walkPhoto setImageWithURL:url];
             
+            [self.walkEntity getImageFromServerWithUrl:self.walkEntity.walkIllustration completionBlock:^(UIImage *image, NSError *error) {
+                
+                [cell.walkPhoto setImage:image];
+                if (!image) {
+                    
+                    NSLog(@"%@", error.description);
+                }
+            }];
+            
+
              if ([self.walkEntity.walkIllustration hasSuffix:@"/upload/"]) {
                 
                 UIImage* image = [UIImage imageNamed:@"No_Image"];
@@ -162,12 +174,16 @@ static NSString* walkPhotoUrl = @"http://www.ifootpath.com/upload/";
         ACFullScreenImageController* viewController = [self.storyboard instantiateViewControllerWithIdentifier: @"identifier1"];;
         
         viewController.imageString = self.walkEntity.walkPhoto;
+        viewController.walk = self.walkEntity;
+        
         [self presentViewController:viewController animated:YES completion:nil];
         
     }
     if (indexPath.row == 2) {
         ACFullScreenImageController* viewController = [self.storyboard instantiateViewControllerWithIdentifier: @"identifier1"];;
         viewController.imageString = self.walkEntity.walkIllustration;
+        viewController.walk = self.walkEntity;
+        
         [self presentViewController:viewController animated:YES completion:nil];
     }
 }
@@ -175,11 +191,16 @@ static NSString* walkPhotoUrl = @"http://www.ifootpath.com/upload/";
 
 #pragma mark - Actions
 
--(void) deleteObjectFromCoreData {
-    NSManagedObject* object = self.walkEntity;
-    [[ACCoreDataManager sharedManager] deleteObject:object];
+-(void) deleteObjectFromPlist {
+  
+    
+    ACWalk* walk = self.walkEntity;
+    [[ACDataManager sharedManager] deleteWalkFromPlist:walk];
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
+    
 }
+
 
 -(void)endEditingText {
     [self.view endEditing:YES];
@@ -203,9 +224,10 @@ static NSString* walkPhotoUrl = @"http://www.ifootpath.com/upload/";
     self.navigationItem.rightBarButtonItem = nil;
     UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
                                                                           target:self
-                                                                          action:@selector(deleteObjectFromCoreData)];
+                                                                          action:@selector(deleteObjectFromPlist)];
     [self.navigationItem setRightBarButtonItem:item animated:YES];
-    [self changeValueOfObjectWithText:textView.text forKey:@"walkDescription"];
+    
+    [[ACDataManager sharedManager] changeValueOfObject:self.walkEntity withText:textView.text forKey:@"walkDescription"];
 }
 
 
@@ -225,49 +247,53 @@ static NSString* walkPhotoUrl = @"http://www.ifootpath.com/upload/";
 
         if ([textField.restorationIdentifier  isEqual: @"titleTextField"]) {
         if ([textField.text length] == 0) {
-            [self changeValueOfObjectWithText:@"unknown title" forKey:@"walkTitle"];
+    
+            [[ACDataManager sharedManager] changeValueOfObject:self.walkEntity withText:@"unknown title" forKey:@"walkTitle"];
             self.navigationItem.title = @"unknown title";
+            
         }else{
-        [self changeValueOfObjectWithText:textField.text forKey:@"walkTitle"];
+            
+        [[ACDataManager sharedManager] changeValueOfObject:self.walkEntity withText:textField.text forKey:@"walkTitle"];
             self.navigationItem.title = textField.text;
         }
     }
     if ([textField.restorationIdentifier  isEqual: @"countryTextField"]) {
-        [self changeValueOfObjectWithText:textField.text forKey:@"walkCountry"];
+    
+        [[ACDataManager sharedManager] changeValueOfObject:self.walkEntity withText:textField.text forKey:@"walkCountry"];
     }
     if ([textField.restorationIdentifier  isEqual: @"typeTextField"]) {
-        [self changeValueOfObjectWithText:textField.text forKey:@"walkType"];
+        [[ACDataManager sharedManager] changeValueOfObject:self.walkEntity withText:textField.text forKey:@"walkType"];
     }
     if ([textField.restorationIdentifier  isEqual: @"districtTextField"]) {
-        [self changeValueOfObjectWithText:textField.text forKey:@"walkDistrict"];
+        [[ACDataManager sharedManager] changeValueOfObject:self.walkEntity withText:textField.text forKey:@"walkDistrict"];
     }
     if ([textField.restorationIdentifier  isEqual: @"lengthTextField"]) {
-        [self changeValueOfObjectWithText:textField.text forKey:@"walkLength"];
+        [[ACDataManager sharedManager] changeValueOfObject:self.walkEntity withText:textField.text forKey:@"walkLength"];
     }
     if ([textField.restorationIdentifier  isEqual: @"startCoordLatTextField"]) {
         
-        [self changeValueOfObjectWithText:textField.text forKey:@"walkStartCoordLat"];
+        [[ACDataManager sharedManager] changeValueOfObject:self.walkEntity withText:textField.text forKey:@"walkStartCoordLat"];
     }
     if ([textField.restorationIdentifier  isEqual: @"startCoordLongTextField"]) {
-        [self changeValueOfObjectWithText:textField.text forKey:@"walkStartCoordLong"];
+        [[ACDataManager sharedManager] changeValueOfObject:self.walkEntity withText:textField.text forKey:@"walkStartCoordLong"];
     }
     if ([textField.restorationIdentifier  isEqual: @"gradeTextField"]) {
-        [self changeValueOfObjectWithText:textField.text forKey:@"walkGrade"];
+       [[ACDataManager sharedManager] changeValueOfObject:self.walkEntity withText:textField.text forKey:@"walkGrade"];
     }
     if ([textField.restorationIdentifier  isEqual: @"ratingTextField"]) {
-        [self changeValueOfObjectWithText:textField.text forKey:@"walkRating"];
+        [[ACDataManager sharedManager] changeValueOfObject:self.walkEntity withText:textField.text forKey:@"walkRating"];
     }
     if ([textField.restorationIdentifier  isEqual: @"versionField"]) {
-        [self changeValueOfObjectWithText:textField.text forKey:@"walkVersion"];
+        [[ACDataManager sharedManager] changeValueOfObject:self.walkEntity withText:textField.text forKey:@"walkVersion"];
     }
     if ([textField.restorationIdentifier  isEqual: @"IDField"]) {
-        [self changeValueOfObjectWithText:textField.text forKey:@"walkID"];
+       [[ACDataManager sharedManager] changeValueOfObject:self.walkEntity withText:textField.text forKey:@"walkID"];
     }
     
     self.navigationItem.rightBarButtonItem = nil;
     UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
                                                                               target:self
-                                                                              action:@selector(deleteObjectFromCoreData)];
+                                                                              action:@selector(deleteObjectFromPlist)];
         [self.navigationItem setRightBarButtonItem:item animated:YES];
 }
 
@@ -278,12 +304,29 @@ static NSString* walkPhotoUrl = @"http://www.ifootpath.com/upload/";
     return YES;
 }
 
-#pragma mark - ChangeValue
+
+#pragma mark - previewCellDelegate
 
 
--(void) changeValueOfObjectWithText:(NSString*) text forKey:(NSString*) key {
- 
-    [[ACCoreDataManager sharedManager] changeObjectInCoreData:self.walkEntity withText:text forKey:key];
+-(void) viewWalkOnCell:(ACWalksPreviewCell*)cell {
+    
+    NSIndexPath* indexPath = cell.indexPath;
+    
+    self.walkEntity = [cell.mainController.plistArray objectAtIndex:indexPath.row];
+    [cell.mainController.navigationController pushViewController:self animated:YES];
 }
+
+-(void) deleteWalkOnCell:(ACWalksPreviewCell*)cell {
+    
+    NSIndexPath* indexPath = cell.indexPath;
+    
+    self.walkEntity =  [cell.mainController.plistArray objectAtIndex:indexPath.row];
+    [[ACDataManager sharedManager] deleteWalkFromPlist:self.walkEntity];
+    
+}
+
+
+    
+
 
 @end

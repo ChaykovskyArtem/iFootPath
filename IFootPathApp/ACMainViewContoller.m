@@ -8,19 +8,19 @@
 
 #import "ACMainViewContoller.h"
 #import "ACWalksPreviewCell.h"
-#import "UIKit+AFNetworking.h"
 #import "ACDetailsViewController.h"
 #import <MBProgressHUD.h>
 #import <CoreData/CoreData.h>
 #import "ACCoreDataManager.h"
 #import "ACServerManager.h"
+#import "ACDataManager.h"
 
 
 @interface ACMainViewContoller ()
 
-@property (strong, nonatomic) NSFetchedResultsController* fetchedResultsController;
-@property (strong, nonatomic) NSManagedObjectContext* managedObjectContext;
+
 @property (strong,nonatomic) MBProgressHUD *progressHud;
+
 
 @end
 
@@ -28,14 +28,6 @@
 
 static NSString* serverUrl = @"http://www.ifootpath.com/API/get_walks.php";
 
-
-- (NSManagedObjectContext*) managedObjectContext {
-    
-    if (!_managedObjectContext) {
-        _managedObjectContext = [[ACCoreDataManager sharedManager] managedObjectContext];
-    }
-    return _managedObjectContext;
-}
 
 
 - (void)viewDidLoad {
@@ -49,55 +41,27 @@ static NSString* serverUrl = @"http://www.ifootpath.com/API/get_walks.php";
     
     self.navigationItem.title = @"iFootPath walks";
     
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections] [0];
-    if ([sectionInfo numberOfObjects] == 0) {
-        
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didGetMyNotification:)
+                                                 name:@"loadFromPlistArray"
+                                               object:nil];
+    
+        [[ACDataManager sharedManager] loadFromPlist];
+    
+    if ([self.tableView numberOfRowsInSection:0] == 0) {
         [self refreshWalksFromServer];
-        
     }
-
-}
-
-#pragma mark - UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return [[self.fetchedResultsController sections] count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-   id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString* identifier = @"Cell";
-    
-    ACWalksPreviewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (!cell) {
-        cell = [[ACWalksPreviewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
-    }
-    [self configureCell:cell atIndexPath:indexPath];
-    return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        
-        NSError *error = nil;
-        if (![context save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
+   
+    ACWalk* walk = [self.plistArray objectAtIndex:indexPath.row];
+    [[ACDataManager sharedManager] deleteWalkFromPlist:walk];
+   
 }
 
 
@@ -105,13 +69,7 @@ static NSString* serverUrl = @"http://www.ifootpath.com/API/get_walks.php";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    ACDetailsViewController* viewController = [self.storyboard instantiateViewControllerWithIdentifier: @"identifier"];
-    
-    WalksEntity* entity = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    viewController.walkEntity = entity;
-
-    [self.navigationController pushViewController:viewController animated:YES];
+     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 
@@ -119,134 +77,33 @@ static NSString* serverUrl = @"http://www.ifootpath.com/API/get_walks.php";
  #pragma mark - Actions
 
 - (void) refreshWalksFromServer {
+   
     
     self.progressHud =[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.progressHud.mode = MBProgressHUDModeIndeterminate;
     self.progressHud.labelText = @"Loading";
+    
+        [[ACServerManager sharedManager] getDataFromServer];
+}
 
-    [[ACServerManager sharedManager] getDataFromServerOnURL:serverUrl];
+#pragma mark - Notifications
+
+-(void)didGetMyNotification:(NSNotification*)notification {
+    
+    self.plistArray = [notification object];
+    NSSortDescriptor* descriptor = [[NSSortDescriptor alloc] initWithKey:@"walkTitle" ascending:NO];
+    [self.plistArray sortedArrayUsingDescriptors:@[descriptor]];
+    NSLog(@"Number of walks: %d", self.plistArray.count);
+    [self.tableView reloadData];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_progressHud hide:YES];
+    });
+    
 }
 
 
-#pragma mark - Fetched results controller
-
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
-    
-    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
-    
-    NSEntityDescription* description =
-    [NSEntityDescription entityForName:@"WalksEntity"
-                inManagedObjectContext:self.managedObjectContext];
-    
-    [fetchRequest setEntity:description];
-    NSSortDescriptor* descriptor =
-    [[NSSortDescriptor alloc] initWithKey:@"walkTitle" ascending:YES];
-    
-    
-    [fetchRequest setSortDescriptors:@[descriptor]];
-    [fetchRequest setFetchBatchSize:20];
-    
-    
-    NSFetchedResultsController *aFetchedResultsController =
-    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:self.managedObjectContext
-                                          sectionNameKeyPath:nil
-                                                   cacheName:@"cache"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-    NSError *error = nil;
-    if (![self.fetchedResultsController performFetch:&error]) {
-        
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    
-    return _fetchedResultsController;
-}
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView beginUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-       case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            
-            break;
-        case NSFetchedResultsChangeUpdate:
-            break;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
-    UITableView *tableView = self.tableView;
-    
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-          [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView endUpdates];
-    
-    [self.progressHud hide:YES];
-}
-
-
-- (void)configureCell:(ACWalksPreviewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-
-    WalksEntity *walks = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    cell.title.text = walks.walkTitle;
-    [cell.difficalty setImage:[self imageFromDifficalty:walks.walkGrade]];
-    
-    NSString* typeString = [NSString stringWithFormat:@"Type: %@", walks.walkType];
-    cell.typeLabel.text = typeString;
-    
-    NSString* countryString = [NSString stringWithFormat:@"Country: %@", walks.walkCountry];
-    cell.countryLabel.text = countryString;
-    
-    NSURL* url = [NSURL URLWithString:walks.walkPhoto];
-    
-    [cell.walkIcon setImageWithURL:url];
-    [cell.rating setImage:[self imageFromRating:walks.walkRating]];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-}
-
-
+#pragma mark - Images
 
 -(UIImage*) imageFromRating: (NSString*) ratingString {
     
@@ -290,4 +147,63 @@ static NSString* serverUrl = @"http://www.ifootpath.com/API/get_walks.php";
     
     return nil;
 }
+
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+   return [self.plistArray count];
+    
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    static NSString* identifier = @"Cell";
+    
+    ACWalksPreviewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    if (!cell) {
+        cell = [[ACWalksPreviewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+}
+    
+    ACWalk *walks = [self.plistArray objectAtIndex:indexPath.row];
+    
+    cell.title.text = walks.walkTitle;
+    
+    [cell.difficalty setImage:[self imageFromDifficalty:walks.walkGrade]];
+    
+ 
+    [walks getImageFromServerWithUrl:walks.walkIcon completionBlock:^(UIImage *image, NSError *error) {
+        
+        [cell.walkIcon setImage:image];
+        
+        if (!image) {
+            
+            NSLog(@"%@", error.description);
+        }
+    }];
+    
+    [cell.rating setImage:[self imageFromRating:walks.walkRating]];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    cell.indexPath = indexPath;
+    cell.mainController = self;
+    
+    return cell;
+}
+
+
+
+-(void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+}
+
+
 @end

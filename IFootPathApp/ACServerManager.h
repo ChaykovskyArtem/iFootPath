@@ -13,6 +13,6 @@
 
 + (ACServerManager*) sharedManager;
 
-- (void) getDataFromServerOnURL:(NSString*) url;
+-(void) getDataFromServer;
 
 @end

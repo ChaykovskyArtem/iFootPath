@@ -11,8 +11,4 @@
 @implementation ACDetailsEditCell
 
 
-
-
-
-
 @end

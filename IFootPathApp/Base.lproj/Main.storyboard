@@ -19,7 +19,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAO-nf-CCf">
-                                            <rect key="frame" x="122" y="11" width="236" height="56"/>
+                                            <rect key="frame" x="122" y="11" width="236" height="46"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="0.26445383690000002" blue="0.4482649595" alpha="1" colorSpace="calibratedRGB"/>
@@ -30,29 +30,37 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KJs-hs-msj">
                                             <rect key="frame" x="14" y="100" width="100" height="19"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTi-fN-Krm">
-                                            <rect key="frame" x="122" y="75" width="199" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qh5-mg-l2h">
-                                            <rect key="frame" x="122" y="100" width="156" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qdn-sh-Cil">
+                                            <rect key="frame" x="122" y="71" width="77" height="48"/>
+                                            <color key="backgroundColor" red="0.0" green="0.4839373911321081" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="View">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="viewWalk:" destination="1sv-mT-4GH" eventType="touchUpInside" id="aM5-Xw-Wvg"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uCa-mm-jSD">
+                                            <rect key="frame" x="207" y="71" width="77" height="48"/>
+                                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="Delete"/>
+                                            <connections>
+                                                <action selector="deleteWalk:" destination="1sv-mT-4GH" eventType="touchUpInside" id="4te-to-rxk"/>
+                                            </connections>
+                                        </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xgx-y4-Aff">
-                                            <rect key="frame" x="286" y="102" width="72" height="17"/>
+                                            <rect key="frame" x="292" y="102" width="72" height="17"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="countryLabel" destination="Qh5-mg-l2h" id="3wX-WI-jwk"/>
                                     <outlet property="difficalty" destination="Xgx-y4-Aff" id="yok-Lt-Ynx"/>
                                     <outlet property="rating" destination="KJs-hs-msj" id="GPR-hd-l7A"/>
                                     <outlet property="title" destination="aAO-nf-CCf" id="NNg-FU-zJr"/>
-                                    <outlet property="typeLabel" destination="hTi-fN-Krm" id="4DD-Wm-CGY"/>
                                     <outlet property="walkIcon" destination="ido-5O-0AO" id="yt4-Di-D0J"/>
                                 </connections>
                             </tableViewCell>
@@ -69,7 +77,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Isj-zu-4Ft" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="441.5" y="135.5"/>
+            <point key="canvasLocation" x="441.5" y="115.5"/>
         </scene>
         <!--Details View Controller-->
         <scene sceneID="Nv3-Wf-HZz">

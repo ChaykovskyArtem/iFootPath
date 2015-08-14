@@ -7,8 +7,6 @@
 //
 
 #import "ACFullScreenImageController.h"
-#import <AFNetworking.h>
-#import "UIKit+AFNetworking.h"
 
 
 @interface ACFullScreenImageController ()
@@ -18,12 +16,20 @@
 @implementation ACFullScreenImageController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
-    NSURL* url = [NSURL URLWithString:self.imageString];
-    [self.imageView setImageWithURL:url];
+       [self.walk getImageFromServerWithUrl:self.imageString completionBlock:^(UIImage *image, NSError *error) {
+        
+        [self.imageView setImage:image];
+        
+        if(!image) {
+            
+            NSLog(@"%@", error.description);
+        }
+    }];
     
-    if ([self.imageString hasSuffix:@"/upload/"]) {
+    if ([self.walk.walkIllustration hasSuffix:@"/upload/"]) {
         UIImage* image = [UIImage imageNamed:@"No_Image"];
         [self.imageView setImage:image];
     }

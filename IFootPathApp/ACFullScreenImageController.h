@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ACWalk.h"
 
 @interface ACFullScreenImageController : UIViewController
 
 @property IBOutlet UIImageView* imageView;
 @property NSString* imageString;
+@property ACWalk* walk;
 
 @end

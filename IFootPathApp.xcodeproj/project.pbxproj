@@ -20,15 +20,16 @@
 		AC3211E71B56761300F678ED /* Difficulty4.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3211E21B56761300F678ED /* Difficulty4.png */; };
 		AC3211E81B56761300F678ED /* Difficulty5.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3211E31B56761300F678ED /* Difficulty5.png */; };
 		AC3211EA1B56770A00F678ED /* No_Image.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3211E91B56770A00F678ED /* No_Image.png */; };
+		AC3626D91B791587000C1B66 /* ACDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3626D81B791587000C1B66 /* ACDataManager.m */; };
 		AC37F4A71B49BDB200853407 /* ACWalksPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC37F4A61B49BDB200853407 /* ACWalksPreviewCell.m */; };
 		AC37F4AA1B49EECC00853407 /* ACDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC37F4A91B49EECC00853407 /* ACDetailsViewController.m */; };
 		AC37F4AD1B49F90900853407 /* ACWalkDetailsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC37F4AC1B49F90900853407 /* ACWalkDetailsCell.m */; };
 		AC43DC601B4F351D003436EF /* navbar_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = AC43DC5F1B4F351D003436EF /* navbar_bg.png */; };
 		AC43DC621B4F3C41003436EF /* button_back.png in Resources */ = {isa = PBXBuildFile; fileRef = AC43DC611B4F3C41003436EF /* button_back.png */; };
+		AC68335F1B795F7300D5395F /* walks.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC68335E1B795F7300D5395F /* walks.plist */; };
 		AC6993581B4B24530072DC4F /* ACDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6993571B4B24530072DC4F /* ACDescriptionCell.m */; };
 		AC69935B1B4B8A840072DC4F /* ACDetailsEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC69935A1B4B8A840072DC4F /* ACDetailsEditCell.m */; };
 		AC77E12D1B53EE9100ED1320 /* ACFullScreenImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC77E12C1B53EE9100ED1320 /* ACFullScreenImageController.m */; };
-		AC8CB5FE1B5523460059B503 /* WalksEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8CB5FD1B5523460059B503 /* WalksEntity.m */; };
 		ACD609F81B48C11E006B4FE0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD609F71B48C11E006B4FE0 /* main.m */; };
 		ACD609FB1B48C11E006B4FE0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD609FA1B48C11E006B4FE0 /* AppDelegate.m */; };
 		ACD609FE1B48C11E006B4FE0 /* IFootPathApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACD609FC1B48C11E006B4FE0 /* IFootPathApp.xcdatamodeld */; };
@@ -36,7 +37,6 @@
 		ACD60A061B48C11E006B4FE0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD60A051B48C11E006B4FE0 /* Images.xcassets */; };
 		ACD60A091B48C11E006B4FE0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD60A071B48C11E006B4FE0 /* LaunchScreen.xib */; };
 		ACD60A591B48C7E5006B4FE0 /* ACMainViewContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD60A581B48C7E5006B4FE0 /* ACMainViewContoller.m */; };
-		ACFE82951B48E13E0042F7D1 /* ACCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ACFE82941B48E13E0042F7D1 /* ACCoreDataManager.m */; };
 		ACFE82981B48E2BE0042F7D1 /* ACServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ACFE82971B48E2BE0042F7D1 /* ACServerManager.m */; };
 		ACFE829E1B48E52F0042F7D1 /* ACWalk.m in Sources */ = {isa = PBXBuildFile; fileRef = ACFE829D1B48E52F0042F7D1 /* ACWalk.m */; };
 /* End PBXBuildFile section */
@@ -56,6 +56,8 @@
 		AC3211E21B56761300F678ED /* Difficulty4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Difficulty4.png; sourceTree = "<group>"; };
 		AC3211E31B56761300F678ED /* Difficulty5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Difficulty5.png; sourceTree = "<group>"; };
 		AC3211E91B56770A00F678ED /* No_Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = No_Image.png; path = Images/No_Image.png; sourceTree = "<group>"; };
+		AC3626D71B791587000C1B66 /* ACDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACDataManager.h; sourceTree = "<group>"; };
+		AC3626D81B791587000C1B66 /* ACDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACDataManager.m; sourceTree = "<group>"; };
 		AC37F4A51B49BDB200853407 /* ACWalksPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACWalksPreviewCell.h; sourceTree = "<group>"; };
 		AC37F4A61B49BDB200853407 /* ACWalksPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACWalksPreviewCell.m; sourceTree = "<group>"; };
 		AC37F4A81B49EECC00853407 /* ACDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACDetailsViewController.h; sourceTree = "<group>"; };
@@ -64,14 +66,13 @@
 		AC37F4AC1B49F90900853407 /* ACWalkDetailsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACWalkDetailsCell.m; sourceTree = "<group>"; };
 		AC43DC5F1B4F351D003436EF /* navbar_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = navbar_bg.png; path = Images/navbar_bg.png; sourceTree = "<group>"; };
 		AC43DC611B4F3C41003436EF /* button_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_back.png; path = Images/button_back.png; sourceTree = "<group>"; };
+		AC68335E1B795F7300D5395F /* walks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = walks.plist; sourceTree = "<group>"; };
 		AC6993561B4B24530072DC4F /* ACDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACDescriptionCell.h; sourceTree = "<group>"; };
 		AC6993571B4B24530072DC4F /* ACDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACDescriptionCell.m; sourceTree = "<group>"; };
 		AC6993591B4B8A840072DC4F /* ACDetailsEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACDetailsEditCell.h; sourceTree = "<group>"; };
 		AC69935A1B4B8A840072DC4F /* ACDetailsEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACDetailsEditCell.m; sourceTree = "<group>"; };
 		AC77E12B1B53EE9100ED1320 /* ACFullScreenImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACFullScreenImageController.h; sourceTree = "<group>"; };
 		AC77E12C1B53EE9100ED1320 /* ACFullScreenImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACFullScreenImageController.m; sourceTree = "<group>"; };
-		AC8CB5FC1B5523460059B503 /* WalksEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalksEntity.h; sourceTree = "<group>"; };
-		AC8CB5FD1B5523460059B503 /* WalksEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalksEntity.m; sourceTree = "<group>"; };
 		ACD609F21B48C11E006B4FE0 /* iFootPathApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFootPathApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD609F61B48C11E006B4FE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ACD609F71B48C11E006B4FE0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -85,8 +86,6 @@
 		ACD60A141B48C11E006B4FE0 /* IFootPathAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFootPathAppTests.m; sourceTree = "<group>"; };
 		ACD60A571B48C7E5006B4FE0 /* ACMainViewContoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACMainViewContoller.h; sourceTree = "<group>"; };
 		ACD60A581B48C7E5006B4FE0 /* ACMainViewContoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACMainViewContoller.m; sourceTree = "<group>"; };
-		ACFE82931B48E13E0042F7D1 /* ACCoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACCoreDataManager.h; sourceTree = "<group>"; };
-		ACFE82941B48E13E0042F7D1 /* ACCoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACCoreDataManager.m; sourceTree = "<group>"; };
 		ACFE82961B48E2BE0042F7D1 /* ACServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACServerManager.h; sourceTree = "<group>"; };
 		ACFE82971B48E2BE0042F7D1 /* ACServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACServerManager.m; sourceTree = "<group>"; };
 		ACFE829C1B48E52F0042F7D1 /* ACWalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACWalk.h; sourceTree = "<group>"; };
@@ -164,15 +163,6 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		AC37F4A01B49BA5E00853407 /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				AC8CB5FC1B5523460059B503 /* WalksEntity.h */,
-				AC8CB5FD1B5523460059B503 /* WalksEntity.m */,
-			);
-			name = Entity;
-			sourceTree = "<group>";
-		};
 		AC37F4A11B49BD0000853407 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +219,7 @@
 				ACD609FC1B48C11E006B4FE0 /* IFootPathApp.xcdatamodeld */,
 				ACD609F61B48C11E006B4FE0 /* Info.plist */,
 				ACD609F71B48C11E006B4FE0 /* main.m */,
+				AC68335E1B795F7300D5395F /* walks.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -269,11 +260,10 @@
 			children = (
 				ACFE829C1B48E52F0042F7D1 /* ACWalk.h */,
 				ACFE829D1B48E52F0042F7D1 /* ACWalk.m */,
-				AC37F4A01B49BA5E00853407 /* Entity */,
-				ACFE82931B48E13E0042F7D1 /* ACCoreDataManager.h */,
-				ACFE82941B48E13E0042F7D1 /* ACCoreDataManager.m */,
 				ACFE82961B48E2BE0042F7D1 /* ACServerManager.h */,
 				ACFE82971B48E2BE0042F7D1 /* ACServerManager.m */,
+				AC3626D71B791587000C1B66 /* ACDataManager.h */,
+				AC3626D81B791587000C1B66 /* ACDataManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -351,6 +341,7 @@
 				AC3211DA1B56760E00F678ED /* Rating2.png in Resources */,
 				ACD60A091B48C11E006B4FE0 /* LaunchScreen.xib in Resources */,
 				AC3211DD1B56760E00F678ED /* Rating5.png in Resources */,
+				AC68335F1B795F7300D5395F /* walks.plist in Resources */,
 				AC3211DB1B56760E00F678ED /* Rating3.png in Resources */,
 				AC3211E71B56761300F678ED /* Difficulty4.png in Resources */,
 				AC3211E81B56761300F678ED /* Difficulty5.png in Resources */,
@@ -407,14 +398,13 @@
 				ACFE829E1B48E52F0042F7D1 /* ACWalk.m in Sources */,
 				AC77E12D1B53EE9100ED1320 /* ACFullScreenImageController.m in Sources */,
 				ACD609FB1B48C11E006B4FE0 /* AppDelegate.m in Sources */,
-				AC8CB5FE1B5523460059B503 /* WalksEntity.m in Sources */,
+				AC3626D91B791587000C1B66 /* ACDataManager.m in Sources */,
 				ACD609FE1B48C11E006B4FE0 /* IFootPathApp.xcdatamodeld in Sources */,
 				ACFE82981B48E2BE0042F7D1 /* ACServerManager.m in Sources */,
 				ACD60A591B48C7E5006B4FE0 /* ACMainViewContoller.m in Sources */,
 				AC37F4AD1B49F90900853407 /* ACWalkDetailsCell.m in Sources */,
 				AC69935B1B4B8A840072DC4F /* ACDetailsEditCell.m in Sources */,
 				AC37F4AA1B49EECC00853407 /* ACDetailsViewController.m in Sources */,
-				ACFE82951B48E13E0042F7D1 /* ACCoreDataManager.m in Sources */,
 				ACD609F81B48C11E006B4FE0 /* main.m in Sources */,
 				AC6993581B4B24530072DC4F /* ACDescriptionCell.m in Sources */,
 				AC37F4A71B49BDB200853407 /* ACWalksPreviewCell.m in Sources */,

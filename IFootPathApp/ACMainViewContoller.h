@@ -11,6 +11,6 @@
 
 @interface ACMainViewContoller : UITableViewController <NSFetchedResultsControllerDelegate>
 
-
+@property (strong,nonatomic) NSMutableArray* plistArray;
 
 @end
