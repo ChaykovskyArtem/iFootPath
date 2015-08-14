@@ -26,10 +26,7 @@
 
 - (IBAction)viewWalk:(UIButton *)sender {
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    
-    ACDetailsViewController* detailsViewController = [storyboard instantiateViewControllerWithIdentifier:@"identifier"];
-    self.delegate = detailsViewController;
+    self.delegate = self.mainController;
 
     [self.delegate viewWalkOnCell:self];
     
@@ -37,15 +34,9 @@
 
 - (IBAction)deleteWalk:(UIButton *)sender {
     
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Walk was deleted" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alert show];
-   
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    
-    ACDetailsViewController* detailsViewController = [storyboard instantiateViewControllerWithIdentifier:@"identifier"];
-    self.delegate = detailsViewController;
+        self.delegate = self.mainController;
 
-    [self.delegate deleteWalkOnCell:self];
+        [self.delegate deleteWalkOnCell:self];
     
 }
 @end

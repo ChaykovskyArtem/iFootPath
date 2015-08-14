@@ -198,6 +198,34 @@ static NSString* serverUrl = @"http://www.ifootpath.com/API/get_walks.php";
 }
 
 
+#pragma mark - previewCellDelegate
+
+
+-(void) viewWalkOnCell:(ACWalksPreviewCell*)cell {
+    
+    NSIndexPath* indexPath = cell.indexPath;
+    
+    ACWalk* walk = [self.plistArray objectAtIndex:indexPath.row];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    
+    ACDetailsViewController* detailsViewController = [storyboard instantiateViewControllerWithIdentifier:@"identifier"];
+    detailsViewController.walkEntity = walk;
+    [self.navigationController pushViewController:detailsViewController animated:YES];
+
+    }
+
+-(void) deleteWalkOnCell:(ACWalksPreviewCell*)cell {
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Walk was deleted" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    
+    NSIndexPath* indexPath = cell.indexPath;
+    
+    ACWalk* walk = [self.plistArray objectAtIndex:indexPath.row];
+    
+    [[ACDataManager sharedManager] deleteWalkFromPlist:walk];
+}
 
 -(void)dealloc {
     

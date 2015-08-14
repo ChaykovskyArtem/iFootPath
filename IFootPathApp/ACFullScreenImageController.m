@@ -29,7 +29,7 @@
         }
     }];
     
-    if ([self.walk.walkIllustration hasSuffix:@"/upload/"]) {
+    if ([self.imageString hasSuffix:@"/upload/"]) {
         UIImage* image = [UIImage imageNamed:@"No_Image"];
         [self.imageView setImage:image];
     }

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ACDetailsViewController.h"
 #import "ACMainViewContoller.h"
+
 @protocol previewCellDelegate;
 
 @interface ACWalksPreviewCell : UITableViewCell

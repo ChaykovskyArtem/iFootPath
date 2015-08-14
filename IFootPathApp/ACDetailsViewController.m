@@ -84,8 +84,7 @@ static NSString* walkPhotoUrl = @"http://www.ifootpath.com/upload/";
                 }
             }];
             
-
-             if ([self.walkEntity.walkIllustration hasSuffix:@"/upload/"]) {
+                if ([self.walkEntity.walkIllustration hasSuffix:@"/upload/"]) {
                 
                 UIImage* image = [UIImage imageNamed:@"No_Image"];
                 [cell.walkPhoto setImage:image];
@@ -304,29 +303,6 @@ static NSString* walkPhotoUrl = @"http://www.ifootpath.com/upload/";
     return YES;
 }
 
-
-#pragma mark - previewCellDelegate
-
-
--(void) viewWalkOnCell:(ACWalksPreviewCell*)cell {
-    
-    NSIndexPath* indexPath = cell.indexPath;
-    
-    self.walkEntity = [cell.mainController.plistArray objectAtIndex:indexPath.row];
-    [cell.mainController.navigationController pushViewController:self animated:YES];
-}
-
--(void) deleteWalkOnCell:(ACWalksPreviewCell*)cell {
-    
-    NSIndexPath* indexPath = cell.indexPath;
-    
-    self.walkEntity =  [cell.mainController.plistArray objectAtIndex:indexPath.row];
-    [[ACDataManager sharedManager] deleteWalkFromPlist:self.walkEntity];
-    
-}
-
-
-    
 
 
 @end

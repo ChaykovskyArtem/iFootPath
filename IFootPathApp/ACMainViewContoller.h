@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+@protocol previewCellDelegate;
 
-@interface ACMainViewContoller : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface ACMainViewContoller : UITableViewController <previewCellDelegate>
 
 @property (strong,nonatomic) NSMutableArray* plistArray;
-
+    
 @end

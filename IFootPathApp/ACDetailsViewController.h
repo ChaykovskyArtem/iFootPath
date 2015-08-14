@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ACWalksPreviewCell.h"
 #import "ACWalk.h"
-@protocol previewCellDelegate;
 
-@interface ACDetailsViewController : UITableViewController <UITextViewDelegate, UITextFieldDelegate, previewCellDelegate>
+@interface ACDetailsViewController : UITableViewController <UITextViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) ACWalk* walkEntity;
 
